@@ -13,6 +13,18 @@ var Game = function () {
                this.y = y;
  }
 
+ var PlayArea = function(){
+   function blocks(){
+     return [new Block(200,310), new Block(210,310), new Block(210,300)];
+   }
+
+   this.draw = function(){
+     blocks().forEach(drawBlock);
+   }
+ }
+ 
+ var playArea = new PlayArea();
+
  function drawBlock(block){
    context.fillStyle = "rgb(200,0,0)";
    context.fillRect (block.x + 1, block.y + 1, 8, 8);
@@ -20,7 +32,7 @@ var Game = function () {
 
  function draw(){
    clear();
-   drawBlock(new Block(0,0)); 
+   playArea.draw();   
  }
  
  this.play = function(){
