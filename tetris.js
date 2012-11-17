@@ -25,19 +25,33 @@ var Game = function () {
      blocks.forEach(decreaseHeight);
    }
 
+   this.landed = function(){
+     var didLand = false;
+     playArea.blocks.forEach(function(areaBlock){
+       blocks.forEach(function(pieceBlock){
+        if (areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x){
+          didLand = true; 
+        }
+       })});
+     return didLand;
+   }
+
    function decreaseHeight(block){
      block.decreaseHeight();
    }
  }
 
  var PlayArea = function(){
-   function blocks(){
-     return [new Block(200,310), new Block(210,310), new Block(210,300)];
-   }
- 
+    this.blocks = [new Block(50, 310), new Block(200,310), new Block(210,310), new Block(210,300)];
+   
     this.draw = function(){
-      blocks().forEach(drawBlock);
+      this.blocks.forEach(drawBlock);
     }
+
+    this.land = function(piece){
+      this.blocks = this.blocks.concat(piece.blocks);
+    }
+
   }
  
  var playArea = new PlayArea();
@@ -49,6 +63,10 @@ var Game = function () {
  }
 
   function update(){
+    if (piece.landed()){
+      playArea.land(piece);
+      piece = new Piece([new Block(50, 0)]);
+    }
     piece.update();
   }
 
@@ -62,7 +80,7 @@ var Game = function () {
    setInterval(function(){
      update();
      draw();
-  }, 500);
+  }, 50);
  }
 }
 
