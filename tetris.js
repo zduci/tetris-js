@@ -51,7 +51,7 @@ var Game = function () {
 
  function randomPiece(){
     var randomPiece = Math.floor(Math.random()*pieceTypes.length);
-    var randomX = Math.floor(Math.random()*22)*10;
+    var randomX = Math.floor(Math.random()*playArea.width/10)*10;
     var blocks = [];
     var color = randomColor();
     pieceTypes[randomPiece].blocks.forEach(function(block){
