@@ -1,7 +1,8 @@
 var Game = function () {
  var canvas = document.getElementById("canvas");
  var context = canvas.getContext("2d");
-    
+ var lost = false;
+
  function clear(){
    context.clearRect(0,0, 640, 800);
  }
@@ -42,6 +43,16 @@ var Game = function () {
        })});
      }
      return didLand;
+   }
+
+   this.reachedTop = function(){
+      var reached = false;
+      piece.blocks.forEach(function(block){
+        if (block.y == 10){
+          reached = true;
+        }
+      });
+      return reached;
    }
 
    function decreaseHeight(block){
@@ -89,16 +100,21 @@ var Game = function () {
 
  function drawBlock(block){
    context.fillStyle = block.color;
-   
    context.fillRect(block.x + 1, block.y + 1, 8, 8);
  }
 
   function update(){
     if (piece.landed()){
-      playArea.land(piece);
-      piece = randomPiece();
+      if (piece.reachedTop()){
+        lost = true;
+      } else {
+          playArea.land(piece);
+          piece = randomPiece();
+      }
     }
-    piece.update();
+    if (lost == false){
+      piece.update();
+    }
   }
 
  function draw(){
@@ -111,7 +127,7 @@ var Game = function () {
    setInterval(function(){
      update();
      draw();
-  }, 50);
+  }, 10);
  }
 }
 
