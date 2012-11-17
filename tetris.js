@@ -8,8 +8,19 @@ var Game = function () {
 
  function update(){}
  
+ var Block = function(x,y){
+               this.x = x;
+               this.y = y;
+ }
+
+ function drawBlock(block){
+   context.fillStyle = "rgb(200,0,0)";
+   context.fillRect (block.x + 1, block.y + 1, 8, 8);
+ }
+
  function draw(){
    clear();
+   drawBlock(new Block(0,0)); 
  }
  
  this.play = function(){
