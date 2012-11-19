@@ -122,8 +122,23 @@ var Game = function () {
    playArea.draw();
    piece.draw();   
  }
+
+ function keyPressed(event){
+   switch (event.keyCode) {
+     case 37:
+       console.log("Left");
+       break;
+     case 39:
+       console.log("Right");
+       break;
+     case 90:
+       console.log("Rotate");
+       break;
+   }
+ }
  
  this.play = function(){
+   window.addEventListener('keydown', keyPressed, true);
    setInterval(function(){
      update();
      draw();
