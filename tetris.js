@@ -74,15 +74,15 @@ var Game = function () {
     this.width = width;
     this.height = height;
     this.blocks = [];
-   
-    this.draw = function(){
-      this.blocks.forEach(drawBlock);
-    }
+ }
 
-    this.land = function(piece){
-      this.blocks = this.blocks.concat(piece.blocks);
-    }
-  }
+ PlayArea.prototype.draw = function(){
+   this.blocks.forEach(drawBlock);
+ }
+
+ PlayArea.prototype.land = function(piece){
+   this.blocks = this.blocks.concat(piece.blocks);
+ }
  
  var pieceTypes = [new Piece([new Block(50, 0), new Block(60, 0), new Block(60, 10), new Block(50, 10)]),
                    new Piece([new Block(50, 0), new Block(50, 10), new Block(50, 20), new Block(50, 30)]),
