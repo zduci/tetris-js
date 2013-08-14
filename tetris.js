@@ -8,12 +8,12 @@ var Game = function () {
  }
 
  var Block = function(x,y, color){
-               this.x = x;
-               this.y = y;
-               this.color = color;
-               this.decreaseHeight = function(){
-                 this.y += 10;
-               }
+   this.x = x;
+   this.y = y;
+   this.color = color;
+ }
+ Block.prototype.decreaseHeight = function(){
+   this.y += 10;
  }
 
  var Piece = function(blocks){
