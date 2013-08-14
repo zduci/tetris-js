@@ -18,46 +18,45 @@ var Game = function () {
 
  var Piece = function(blocks){
    this.blocks = blocks;
+ }
 
-   this.draw = function(){
-     blocks.forEach(drawBlock);
-   }
+ Piece.prototype.draw = function(){
+   this.blocks.forEach(drawBlock);
+ }
 
-   this.update = function(){
-     blocks.forEach(decreaseHeight);
-   }
+ Piece.prototype.update = function(){
+   this.blocks.forEach(function(block) { 
+     block.decreaseHeight(); 
+   });
+ }
 
-   this.landed = function(){
-     var didLand = false;
-     blocks.forEach(function(block){
-       if (block.y == playArea.height){
-         didLand = true;
-       }
-     });
-     if (didLand == false){
-       playArea.blocks.forEach(function(areaBlock){
-       blocks.forEach(function(pieceBlock){
-        if (areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x){
-          didLand = true;
-        } 
-       })});
+ Piece.prototype.landed = function(){
+   var that = this;
+   var didLand = false;
+   this.blocks.forEach(function(block){
+     if (block.y == playArea.height){
+       didLand = true;
      }
-     return didLand;
+   });
+   if (didLand == false){
+     playArea.blocks.forEach(function(areaBlock){
+     that.blocks.forEach(function(pieceBlock){
+      if (areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x){
+        didLand = true;
+      } 
+     })});
    }
+   return didLand;
+ }
 
-   this.reachedTop = function(){
-      var reached = false;
-      piece.blocks.forEach(function(block){
-        if (block.y == 10){
-          reached = true;
-        }
-      });
-      return reached;
-   }
-
-   function decreaseHeight(block){
-     block.decreaseHeight();
-   }
+ Piece.prototype.reachedTop = function(){
+    var reached = false;
+    piece.blocks.forEach(function(block){
+      if (block.y == 10){
+        reached = true;
+      }
+    });
+    return reached;
  }
 
  function randomPiece(){
