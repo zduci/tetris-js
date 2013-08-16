@@ -162,7 +162,7 @@ var Game = function () {
     setInterval(function(){
       update();
       draw();
-    }, 10);
+    }, 50);
   }
 }
 
