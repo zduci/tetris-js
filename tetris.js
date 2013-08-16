@@ -15,6 +15,9 @@ var Game = function () {
   Block.prototype.decreaseHeight = function(){
     this.y += 10;
   }
+  Block.prototype.moveLeft = function(){
+    this.x -= 10;
+  }
 
   var Piece = function(blocks){
     this.blocks = blocks;
@@ -60,6 +63,15 @@ var Game = function () {
     return reached;
   }
 
+  Piece.prototype.right = function(){
+    this.x += 10;
+  }
+
+  Piece.prototype.left = function(){
+    this.blocks.forEach(function(block){
+      block.moveLeft();
+    });
+  }
   function randomPiece(){
     var randomPiece = Math.floor(Math.random()*pieceTypes.length);
     var randomX = Math.floor(Math.random()*playArea.width/10)*10;
@@ -125,7 +137,7 @@ var Game = function () {
   function keyPressed(event){
     switch (event.keyCode) {
       case 37:
-        console.log("Left");
+        piece.left();
         break;
       case 39:
         console.log("Right");
