@@ -67,27 +67,21 @@ var Game = function () {
   }
 
   Piece.prototype.canMoveLeft = function(playArea){
-    var canMove = true;
-    this.blocks.forEach(function(pieceBlock){
-      playArea.blocks.forEach(function(areaBlock){
-        if (areaBlock.x + 10 == pieceBlock.x && areaBlock.y == pieceBlock.y){
-          canMove = false;
-        } 
+    var cannotMove = this.blocks.some(function(pieceBlock){
+      return playArea.blocks.some(function(areaBlock){
+        return areaBlock.x + 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
       });
     });
-    return canMove;
+    return !cannotMove;
   }
 
   Piece.prototype.canMoveRight = function(playArea){
-    var canMove = true;
-    this.blocks.forEach(function(pieceBlock){
-      playArea.blocks.forEach(function(areaBlock){
-        if (areaBlock.x - 10 == pieceBlock.x && areaBlock.y == pieceBlock.y){
-          canMove = false;
-        } 
+    var cannotMove = this.blocks.some(function(pieceBlock){
+      return playArea.blocks.some(function(areaBlock){
+        return areaBlock.x - 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
       });
     });
-    return canMove;
+    return !cannotMove;
   }
 
   Piece.prototype.left = function(){
