@@ -66,8 +66,28 @@ var Game = function () {
     return reached;
   }
 
-  Piece.prototype.right = function(){
-    this.x += 10;
+  Piece.prototype.canMoveLeft = function(playArea){
+    var canMove = true;
+    this.blocks.forEach(function(pieceBlock){
+      playArea.blocks.forEach(function(areaBlock){
+        if (areaBlock.x + 10 == pieceBlock.x && areaBlock.y == pieceBlock.y){
+          canMove = false;
+        } 
+      });
+    });
+    return canMove;
+  }
+
+  Piece.prototype.canMoveRight = function(playArea){
+    var canMove = true;
+    this.blocks.forEach(function(pieceBlock){
+      playArea.blocks.forEach(function(areaBlock){
+        if (areaBlock.x - 10 == pieceBlock.x && areaBlock.y == pieceBlock.y){
+          canMove = false;
+        } 
+      });
+    });
+    return canMove;
   }
 
   Piece.prototype.left = function(){
@@ -75,6 +95,7 @@ var Game = function () {
       block.moveLeft();
     });
   }
+
   Piece.prototype.right = function(){
     this.blocks.forEach(function(block){
       block.moveRight();
@@ -146,10 +167,14 @@ var Game = function () {
   function keyPressed(event){
     switch (event.keyCode) {
       case 37:
-        piece.left();
+        if (piece.canMoveLeft(playArea)){
+          piece.left();
+        }
         break;
       case 39:
-        piece.right();
+        if (piece.canMoveRight(playArea)){
+          piece.right();
+        }
         break;
       case 90:
         console.log("Rotate");
@@ -162,7 +187,7 @@ var Game = function () {
     setInterval(function(){
       update();
       draw();
-    }, 50);
+    }, 100);
   }
 }
 
