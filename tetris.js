@@ -45,12 +45,8 @@ var Game = function () {
       }
     });
     if (didLand == false){
-      playArea.blocks.forEach(function(areaBlock){
-        that.blocks.forEach(function(pieceBlock){
-          if (areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x){
-            didLand = true;
-          } 
-        })
+      didLand = checkForCollision(that.blocks, playArea.blocks, function(pieceBlock, areaBlock){
+          return areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x;
       });
     }
     return didLand;
@@ -67,21 +63,25 @@ var Game = function () {
   }
 
   Piece.prototype.canMoveLeft = function(playArea){
-    var cannotMove = this.blocks.some(function(pieceBlock){
-      return playArea.blocks.some(function(areaBlock){
-        return areaBlock.x + 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
-      });
+    var cannotMove = checkForCollision(this.blocks, playArea.blocks, function(pieceBlock, areaBlock){
+      return areaBlock.x + 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
     });
     return !cannotMove;
   }
 
   Piece.prototype.canMoveRight = function(playArea){
-    var cannotMove = this.blocks.some(function(pieceBlock){
-      return playArea.blocks.some(function(areaBlock){
-        return areaBlock.x - 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
-      });
+    var cannotMove = checkForCollision(this.blocks, playArea.blocks, function(pieceBlock, areaBlock){
+      return areaBlock.x - 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
     });
     return !cannotMove;
+  }
+
+  function checkForCollision(pieceBlocks, areaBlocks, collisionCheck){
+    return pieceBlocks.some(function(pieceBlock){
+      return areaBlocks.some(function(areaBlock){
+        return collisionCheck(pieceBlock, areaBlock);
+      });
+    });
   }
 
   Piece.prototype.left = function(){
