@@ -37,19 +37,23 @@ var Game = function () {
   }
 
   Piece.prototype.landed = function(){
-    var that = this;
-    var didLand = false;
-    this.blocks.forEach(function(block){
-      if (block.y == playArea.height){
-        didLand = true;
-      }
-    });
-    if (didLand == false){
-      didLand = checkForCollision(that.blocks, playArea.blocks, function(pieceBlock, areaBlock){
-          return areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x;
-      });
+    if (landedOnBottom(this.blocks)){
+      return true;
+    } else {
+      return landedOnOtherPieces(this.blocks, playArea.blocks);
     }
-    return didLand;
+  }
+
+  function landedOnBottom(blocks){
+    return blocks.some(function(block){
+      return block.y == playArea.height;
+    });
+  }
+
+  function landedOnOtherPieces(pieceBlocks, areaBlocks){
+    return checkForCollision(pieceBlocks, areaBlocks, function(pieceBlock, areaBlock){
+        return areaBlock.y - 10 == pieceBlock.y && areaBlock.x == pieceBlock.x;
+    });
   }
 
   Piece.prototype.reachedTop = function(){
