@@ -57,13 +57,9 @@ var Game = function () {
   }
 
   Piece.prototype.reachedTop = function(){
-    var reached = false;
-    piece.blocks.forEach(function(block){
-      if (block.y == 10){
-        reached = true;
-      }
+    return piece.blocks.some(function(block){
+      return block.y == 10;
     });
-    return reached;
   }
 
   Piece.prototype.canMoveLeft = function(playArea){
