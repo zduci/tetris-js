@@ -159,20 +159,22 @@ var Game = function () {
   }
 
   function keyPressed(event){
-    switch (event.keyCode) {
-      case 37:
-        if (piece.canMoveLeft(playArea)){
-          piece.left();
-        }
-        break;
-      case 39:
-        if (piece.canMoveRight(playArea)){
-          piece.right();
-        }
-        break;
-      case 90:
-        console.log("Rotate");
-        break;
+    if (!lost){
+      switch (event.keyCode) {
+        case 37:
+          if (piece.canMoveLeft(playArea)){
+            piece.left();
+          }
+          break;
+        case 39:
+          if (piece.canMoveRight(playArea)){
+            piece.right();
+          }
+          break;
+        case 90:
+          console.log("Rotate");
+          break;
+      }
     }
   }
 
