@@ -139,15 +139,15 @@ var Game = function () {
   }
 
   function update(){
-    if (piece.landed()){
-      if (piece.reachedTop()){
-        lost = true;
-      } else {
+    if (!lost){
+      if (piece.landed()){
+        if (piece.reachedTop()){
+          lost = true;
+        } else {
           playArea.land(piece);
           piece = randomPiece();
+        }
       }
-    }
-    if (lost == false){
       piece.update();
     }
   }
