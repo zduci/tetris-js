@@ -62,7 +62,22 @@ var Game = function () {
     });
   }
 
+  Piece.prototype.reachedLeft = function(){
+    return piece.blocks.some(function(block){
+      return block.x == 0;
+    });
+  }
+
+  Piece.prototype.reachedRight = function(){
+    return piece.blocks.some(function(block){
+      return block.x == playArea.width;
+    });
+  }
+
   Piece.prototype.canMoveLeft = function(playArea){
+    if (piece.reachedLeft()){
+      return false;
+    }
     var cannotMove = checkForCollision(this.blocks, playArea.blocks, function(pieceBlock, areaBlock){
       return areaBlock.x + 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
     });
@@ -70,6 +85,9 @@ var Game = function () {
   }
 
   Piece.prototype.canMoveRight = function(playArea){
+    if (piece.reachedRight()){
+      return false;
+    }
     var cannotMove = checkForCollision(this.blocks, playArea.blocks, function(pieceBlock, areaBlock){
       return areaBlock.x - 10 == pieceBlock.x && areaBlock.y == pieceBlock.y;
     });
