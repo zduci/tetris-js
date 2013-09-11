@@ -117,12 +117,17 @@ var Game = function () {
   function randomPiece(){
     var randomPiece = Math.floor(Math.random()*pieceTypes.length);
     var randomX = Math.floor(Math.random()*playArea.width/10)*10;
+    var clampedX = clamp(20, playArea.width - 40, randomX)
     var blocks = [];
     var color = randomColor();
     pieceTypes[randomPiece].blocks.forEach(function(block){
-      blocks.push(new Block(randomX + block.x, block.y, color));
+      blocks.push(new Block(clampedX + block.x, block.y, color));
     });
     return new Piece(blocks);
+  }
+
+  function clamp(min, max, number){
+    return Math.min(Math.max(number, min), max);
   }
 
   var PlayArea = function(width, height){
