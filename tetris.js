@@ -1,7 +1,7 @@
 var Game = function () {
-  var canvas = document.getElementById("canvas");
-  var context = canvas.getContext("2d");
-  var lost = false;
+  var canvas = document.getElementById("canvas"),
+      context = canvas.getContext("2d"),
+      lost = false;
 
   function clear(){
     context.clearRect(0,0, 640, 800);
@@ -115,11 +115,11 @@ var Game = function () {
   }
 
   function randomPiece(){
-    var randomPiece = Math.floor(Math.random()*pieceTypes.length);
-    var randomX = Math.floor(Math.random()*playArea.width/10)*10;
-    var clampedX = clamp(20, playArea.width - 40, randomX)
-    var blocks = [];
-    var color = randomColor();
+    var randomPiece = Math.floor(Math.random()*pieceTypes.length),
+        randomX = Math.floor(Math.random()*playArea.width/10)*10,
+        clampedX = clamp(20, playArea.width - 40, randomX),
+        blocks = [],
+        color = randomColor();
     pieceTypes[randomPiece].blocks.forEach(function(block){
       blocks.push(new Block(clampedX + block.x, block.y, color));
     });
@@ -148,9 +148,9 @@ var Game = function () {
                     new Piece([new Block(50, 0), new Block(50, 10), new Block(50, 20), new Block(50, 30)]),
                     new Piece([new Block(50, 0), new Block(50, 10), new Block(60, 10), new Block(60, 20)]),
                     new Piece([new Block(50, 0), new Block(50, 10), new Block(50, 20), new Block(60, 20)]),
-                    new Piece([new Block(50, 0), new Block(50, 10), new Block(50, 20), new Block(60, 10)])];
-  var playArea = new PlayArea(210, 310);
-  var piece = randomPiece();
+                    new Piece([new Block(50, 0), new Block(50, 10), new Block(50, 20), new Block(60, 10)])],
+      playArea = new PlayArea(210, 310),
+      piece = randomPiece();
 
   function randomColor(){
     return "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
